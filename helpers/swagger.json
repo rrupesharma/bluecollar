@@ -1,0 +1,447 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Bluecollar Admin API document",
+        "version": "1.0.0",
+        "license": {
+            "name": "ISC"
+        },
+        "description": "Adita Technologies"
+    },
+    "host": "localhost:8881",
+    "tags": [
+        {
+            "name": "Admin",
+            "description": ""
+        }
+    ],
+    "basePath": "/api/v1",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/admin/login": {
+            "post": {
+                "summary": "/admin/login",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "login",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "username",
+                                "password"
+                            ],
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+        "/admin/forgot-password": {
+            "post": {
+                "summary": "/admin/forgot-password",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "forgot password",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "email"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+        "/admin/reset-password": {
+            "post": {
+                "summary": "/admin/reset-password",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "reset password",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "token",
+                                "newpassword",
+                                "confpassword"
+                            ],
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "confpassword": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+        "/admin/check-verification": {
+            "post": {
+                "summary": "/admin/reset-password",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "reset password",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "token",
+                                "password",
+                                "confpassword"
+                            ],
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                },
+                                "username": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "confpassword": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+        "/admin/change-password": {
+            "post": {
+                "summary": "/admin/change-password",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "change password",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "password",
+                                "confpassword"
+                            ],
+                            "properties": {
+                                "password": {
+                                    "type": "string"
+                                },
+                                "confpassword": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+
+
+        "/admin/list": {
+            "post": {
+                "summary": "/admin/list",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "list customer",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "limit",
+                                "offset"
+                            ],
+                            "properties": {
+                                "limit": {
+                                    "type": "integer"
+                                },
+                                "offset": {
+                                    "type": "integer"
+                                },
+                                "key": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+        "/admin/list/{id}": {
+            "get": {
+                "summary": "/admin/list/{id}",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+        "/admin/create": {
+            "post": {
+                "summary": "/admin/create",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "admin create",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "email",
+                                "first_name",
+                                "last_name"
+                            ],
+                            "properties": {
+                                "email":{"type": "string"},
+                                "first_name":{"type": "string"},
+                                "last_name":{"type": "string"},
+                                "phone":{"type": "string"}
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+        "/admin/update": {
+            "put": {
+                "summary": "/admin/update",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "admin create",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "id",
+                                "email",
+                                "first_name",
+                                "last_name"
+                            ],
+                            "properties": {
+                                "id":{"type": "integer"},
+                                "email":{"type": "string"},
+                                "first_name":{"type": "string"},
+                                "last_name":{"type": "string"},
+                                "phone":{"type": "string"}
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ]
+            }
+        },
+        "/admin/del/{id}": {
+            "delete": {
+                "summary": "/admin/del/{id}",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ]
+            }
+        }
+    },
+    "securityDefinitions": {
+        "accessToken": {
+            "type": "apiKey",
+            "name": "x-auth",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "responses": {
+            "200": {
+                "description": "OK",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "status": {
+                            "type": "string"
+                        },
+                        "message": {
+                            "type": "string"
+                        },
+                        "data": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
