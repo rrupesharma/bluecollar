@@ -1,41 +1,41 @@
 {
-    "name": "Bluecollar Admin API",
-    "JWTPrivateKey": "BluecollarAdmin_JWTPrivateKey",
-    "Temp_JWTPrivateKey": "1YTdiYjcz6T4TvA0NTQ90ZjU0MTciLCJpY",
-    "BaseURL": "",
-    "imageDomain": "http://image.com/",
-    "mail": {
-        "host": "smtp.office365.com",
-        "from": "Sunshine Support <sales@sunshinesmallgoods.com.au>",
-        "user": "sales@sunshinesmallgoods.com.au",
-        "pass": "Frmg4422!!"
-    },
-    "sandboxMail": {
-        "host": "smtp.office365.com",
-        "from": "Sunshine Support <sunshine@aditatechnologies.com>",
-        "user": "sunshine@aditatechnologies.com",
-        "pass": "SAd!un$2045"
-    },
-    "encrypt": {
-        "salt": "T48vA0NTQ90jcz6T4TvA0NTQ90sZ456jU0MT"
-    },
-    "db": {
-        "type": "pgsql",
-        "host": "localhost",
-        "port": "5432",
-        "db": "bluecollar",
-        "username": "postgres",
-        "password": "root"
-    },
-    "external": {
-        "url": "https://exoapirelay.beyondportal.co:444/api/v3",
-        "cache_control": "no-cache",
-        "auth": "Basic ZXhvYml6OnpzQ2NOeDhYR1FFZE00SlM=",
-        "username": "exobiz",
-        "password": "zsCcNx8XGQEdM4JS",
-        "api_address": "4a6faceb-74cb-4afe-8d22-055c15184008"
-    },
-    "dasboardUrl": "https://sunshine-admin-frontend-dev.herokuapp.com",
-    "siteUrl": "https://sunshine-web-dev.herokuapp.com",
-    "to_mail": "rupesh.s@aditatechnologies.com,mukesh.k@aditatechnologies.com,hiteshi.k@aditatechnologies.com,akanksha.j@aditatechnologies.com"
+  "name": "Bluecollar Domain API",
+  "JWTPrivateKey": "BluecollarDomain_JWTPrivateKey",
+  "Temp_JWTPrivateKey": "1YTdiYjcz6T4TvA0NTQ90ZjU0MTciLCJpY",
+  "BaseURL": "",
+  "imageDomain": "http://image.com/",
+  "mail": {
+    "host": "",
+    "from": "",
+    "user": "",
+    "pass": ""
+  },
+  "sandboxMail": {
+    "host": "",
+    "from": "",
+    "user": "",
+    "pass": ""
+  },
+  "encrypt": {
+    "salt": "T48vA0NTQ90jcz6T4TvA0NTQ90sZ456jU0MT"
+  },
+  "db": {
+    "type": "pgsql",
+    "host": "localhost",
+    "port": "5432",
+    "db": "bluecollar",
+    "username": "postgres",
+    "password": "root"
+  },
+  "external": {
+    "url": "https://exoapirelay.beyondportal.co:444/api/v3",
+    "cache_control": "no-cache",
+    "auth": "Basic ZXhvYml6OnpzQ2NOeDhYR1FFZE00SlM=",
+    "username": "exobiz",
+    "password": "zsCcNx8XGQEdM4JS",
+    "api_address": "4a6faceb-74cb-4afe-8d22-055c15184008"
+  },
+  "dasboardUrl": "https://sunshine-admin-frontend-dev.herokuapp.com",
+  "siteUrl": "https://sunshine-web-dev.herokuapp.com",
+  "to_mail": "rupesh.s@aditatechnologies.com,mukesh.k@aditatechnologies.com,hiteshi.k@aditatechnologies.com,akanksha.j@aditatechnologies.com"
 }

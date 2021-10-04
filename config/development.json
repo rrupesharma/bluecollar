@@ -1,6 +1,0 @@
-{
-    "name" : "User account details",
-    "mail" : {
-        "host" : "smtp.office365.com"
-    }
-}
