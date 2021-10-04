@@ -25,7 +25,7 @@
         "port": "5432",
         "db": "bluecollar",
         "username": "postgres",
-        "password": "root"
+        "password": "Raghav480018"
     },
     "external": {
         "url": "https://exoapirelay.beyondportal.co:444/api/v3",

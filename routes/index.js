@@ -1,8 +1,6 @@
 const express = require('express');
-const admin = require('./admin.routes');
+const membership = require('./membership.routes');
 const router = express.Router();
 
-router.use('/admin',admin);
-
-
+router.use('/membership',membership);
 module.exports = router;

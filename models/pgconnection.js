@@ -9,10 +9,10 @@ const pool = new pg.Pool({
     password : getPool.password,
     database : getPool.db,
     max: 1000,
-    ssl: {
-        sslmode: 'require',
-        rejectUnauthorized: false
-    },
+    // ssl: {
+    //     sslmode: 'require',
+    //     rejectUnauthorized: false
+    // },
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 50000000,
 });

@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Bluecollar Admin API document",
+        "title": "Bluecollar API ",
         "version": "1.0.0",
         "license": {
             "name": "ISC"
@@ -11,7 +11,7 @@
     "host": "localhost:8881",
     "tags": [
         {
-            "name": "Admin",
+            "name": "Membership",
             "description": ""
         }
     ],
@@ -21,9 +21,10 @@
         "https"
     ],
     "paths": {
-        "/admin/login": {
+
+        "/membership/create": {
             "post": {
-                "summary": "/admin/login",
+                "summary": "/membership/create",
                 "produces": [
                     "application/json"
                 ],
@@ -33,179 +34,22 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "login",
+                        "name": "membership create",
                         "schema": {
                             "type": "object",
                             "required": [
-                                "username",
-                                "password"
+                                "meb_id",
+                                "title",
+                                "image1",
+                                "price",
+                                "orderno"
                             ],
                             "properties": {
-                                "username": {
-                                    "type": "string"
-                                },
-                                "password": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "$ref": "#/definitions/responses"
-                },
-                "tags": [
-                    "Admin"
-                ]
-            }
-        },
-        "/admin/forgot-password": {
-            "post": {
-                "summary": "/admin/forgot-password",
-                "produces": [
-                    "application/json"
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "forgot password",
-                        "schema": {
-                            "type": "object",
-                            "required": [
-                                "email"
-                            ],
-                            "properties": {
-                                "email": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "$ref": "#/definitions/responses"
-                },
-                "tags": [
-                    "Admin"
-                ]
-            }
-        },
-        "/admin/reset-password": {
-            "post": {
-                "summary": "/admin/reset-password",
-                "produces": [
-                    "application/json"
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "reset password",
-                        "schema": {
-                            "type": "object",
-                            "required": [
-                                "token",
-                                "newpassword",
-                                "confpassword"
-                            ],
-                            "properties": {
-                                "token": {
-                                    "type": "string"
-                                },
-                                "password": {
-                                    "type": "string"
-                                },
-                                "confpassword": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "$ref": "#/definitions/responses"
-                },
-                "tags": [
-                    "Admin"
-                ]
-            }
-        },
-        "/admin/check-verification": {
-            "post": {
-                "summary": "/admin/reset-password",
-                "produces": [
-                    "application/json"
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "reset password",
-                        "schema": {
-                            "type": "object",
-                            "required": [
-                                "token",
-                                "password",
-                                "confpassword"
-                            ],
-                            "properties": {
-                                "token": {
-                                    "type": "string"
-                                },
-                                "username": {
-                                    "type": "string"
-                                },
-                                "password": {
-                                    "type": "string"
-                                },
-                                "confpassword": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "$ref": "#/definitions/responses"
-                },
-                "tags": [
-                    "Admin"
-                ]
-            }
-        },
-        "/admin/change-password": {
-            "post": {
-                "summary": "/admin/change-password",
-                "produces": [
-                    "application/json"
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "change password",
-                        "schema": {
-                            "type": "object",
-                            "required": [
-                                "password",
-                                "confpassword"
-                            ],
-                            "properties": {
-                                "password": {
-                                    "type": "string"
-                                },
-                                "confpassword": {
-                                    "type": "string"
-                                }
+                                "meb_id":{"type": "string"},
+                                "title":{"type": "string"},
+                                "image1":{"type": "integer"},
+                                "price":{"type": "string"},
+                                "orderno":{"type": "integer"}
                             }
                         }
                     }
@@ -219,15 +63,13 @@
                     }
                 ],
                 "tags": [
-                    "Admin"
+                    "Membership"
                 ]
             }
         },
-
-
-        "/admin/list": {
+        "/membership/list": {
             "post": {
-                "summary": "/admin/list",
+                "summary": "/membership/list",
                 "produces": [
                     "application/json"
                 ],
@@ -267,13 +109,13 @@
                     }
                 ],
                 "tags": [
-                    "Admin"
+                    "Membership"
                 ]
             }
         },
-        "/admin/list/{id}": {
+        "/membership/list/{id}": {
             "get": {
-                "summary": "/admin/list/{id}",
+                "summary": "/membership/list/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -296,55 +138,13 @@
                     }
                 ],
                 "tags": [
-                    "Admin"
+                    "Membership"
                 ]
             }
         },
-        "/admin/create": {
-            "post": {
-                "summary": "/admin/create",
-                "produces": [
-                    "application/json"
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "admin create",
-                        "schema": {
-                            "type": "object",
-                            "required": [
-                                "email",
-                                "first_name",
-                                "last_name"
-                            ],
-                            "properties": {
-                                "email":{"type": "string"},
-                                "first_name":{"type": "string"},
-                                "last_name":{"type": "string"},
-                                "phone":{"type": "string"}
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "$ref": "#/definitions/responses"
-                },
-                "security": [
-                    {
-                        "accessToken": []
-                    }
-                ],
-                "tags": [
-                    "Admin"
-                ]
-            }
-        },
-        "/admin/update": {
+        "/membership/update": {
             "put": {
-                "summary": "/admin/update",
+                "summary": "/membership/update",
                 "produces": [
                     "application/json"
                 ],
@@ -354,21 +154,19 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "admin create",
+                        "name": "list membership",
+
                         "schema": {
                             "type": "object",
                             "required": [
-                                "id",
-                                "email",
-                                "first_name",
-                                "last_name"
+                                "meb_id"
+                                
                             ],
                             "properties": {
-                                "id":{"type": "integer"},
-                                "email":{"type": "string"},
-                                "first_name":{"type": "string"},
-                                "last_name":{"type": "string"},
-                                "phone":{"type": "string"}
+                                "id": {
+                                    "type": "integer"
+                                }
+                               
                             }
                         }
                     }
@@ -382,13 +180,13 @@
                     }
                 ],
                 "tags": [
-                    "Admin"
+                    "Membership"
                 ]
             }
         },
-        "/admin/del/{id}": {
+        "/membership/delete/{id}": {
             "delete": {
-                "summary": "/admin/del/{id}",
+                "summary": "/membership/delete/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -411,11 +209,11 @@
                     }
                 ],
                 "tags": [
-                    "Admin"
+                    "Membership"
                 ]
             }
-        }
-    },
+        },
+    
     "securityDefinitions": {
         "accessToken": {
             "type": "apiKey",
@@ -444,4 +242,5 @@
             }
         }
     }
+}
 }
