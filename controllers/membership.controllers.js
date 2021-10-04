@@ -41,6 +41,11 @@ const create = async (req, res)=>{
 
 const getAll = async (req, res)=>{
     try {
+        let rules = {
+            limit: 'required',
+            offset: 'required'
+        }
+        await validate(req.body, rules,[]);
         let limit = req.body.limit;
         let offset = req.body.offset;
         let query = `select * from public.membership_tbl  order by creation_dt desc limit ${limit} offset ${offset}`;
