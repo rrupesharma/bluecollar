@@ -13,6 +13,10 @@
         {
             "name": "Membership",
             "description": ""
+        },
+        {
+            "name": "Membership_feature",
+            "description": ""
         }
     ],
     "basePath": "/api/v1",
@@ -38,7 +42,7 @@
                         "schema": {
                             "type": "object",
                             "required": [
-                                "meb_id",
+                                "domain",
                                 "title",
                                 "image1",
                                 "price",
@@ -213,6 +217,201 @@
                 ]
             }
         },
+        "/membership_feature/create": {
+            "post": {
+                "summary": "/membership_feature/create",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "membership_feature create",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "meb_id",
+                                "domain",
+                                "title",
+                                "image1",
+                                "price",
+                                "orderno"
+                            ],
+                            "properties": {
+                                "meb_id":{"type": "string"},
+                                "domain":{"type":"text array"},
+                                "title":{"type": "string"},
+                                "description":{"type":"string"},
+                                "image1":{"type": "integer"},
+                                "price":{"type": "string"},
+                                "orderno":{"type": "integer"}
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Membership_feature"
+                ]
+            }
+        },
+        "/membership_feature/list": {
+            "post": {
+                "summary": "/membership_feature/list",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "list membership_feature",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "limit",
+                                "offset"
+                            ],
+                            "properties": {
+                                "limit": {
+                                    "type": "integer"
+                                },
+                                "offset": {
+                                    "type": "integer"
+                                },
+                                "key": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Membership_feature"
+                ]
+            }
+        },
+        "/membership_feature/list/{id}": {
+            "get": {
+                "summary": "/membership_feature/list/{id}",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Membership_feature"
+                ]
+            }
+        },
+        "/membership_feature/update": {
+            "put": {
+                "summary": "/membership_feature/update",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "list membership_feature",
+
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "mf_id"
+                                
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                }
+                               
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Membership_feature"
+                ]
+            }
+        },
+        "/membership_feature/delete/{id}": {
+            "delete": {
+                "summary": "/membership_feature/delete/{id}",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Membership_feature"
+                ]
+            }
+        }
+    },
     
     "securityDefinitions": {
         "accessToken": {
@@ -242,5 +441,5 @@
             }
         }
     }
-}
+
 }
