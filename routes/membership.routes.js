@@ -8,5 +8,5 @@ router.put("/update/:id", membership.updateById);
 router.delete("/del/:id", membership.deleteById);
 router.get("/list/:id", membership.getById);
 router.get("/list", membership.getAll);
-
+router.put("/updateStatus/:id",membership.updateStatusById);
 module.exports = router;

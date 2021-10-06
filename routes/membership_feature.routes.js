@@ -8,6 +8,6 @@ router.put("/update/:id", membership_feature.updateById);
 router.delete("/del/:id", membership_feature.deleteById);
 router.get("/list/:id", membership_feature.getById);
 router.get("/list", membership_feature.getAll);
-
+router.put("/updateStatus/:id",membership_feature.updateStatusById);
 
 module.exports = router;

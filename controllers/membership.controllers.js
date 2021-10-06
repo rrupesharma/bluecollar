@@ -121,6 +121,35 @@ const updateById = async (req, res)=>{
         return returnStatus(res, error.erorrLog || {}, error.status || 500, error.message)
     }
 }
+const updateStatusById = async (req, res)=>{
+    try {
+        let rules = {
+            id: 'required'
+        }
+
+        await validate(req.params, rules,[]);
+            let meb_id = req.params.id;
+            let is_active = req.body.is_active;
+
+        let query = `UPDATE public.membership_tbl
+        SET is_active = ${is_active}
+        WHERE meb_id = ${meb_id}`;
+
+        let result =  await pool.executeQuery(query,[])
+        return returnStatus(res, {}, 200, 'successfully updated')
+
+    } catch (error) {
+        if (error.stack){
+            console.log("error", new Date(), ":", error)
+            // sysErrorLog(error,__filename.slice(__dirname.length + 1))
+        }
+        return returnStatus(res, error.erorrLog || {}, error.status || 500, error.message)
+    }
+
+
+
+
+}
 
 const deleteById = async (req, res)=>{
     try {
@@ -149,5 +178,6 @@ module.exports = {
     getById,
     getAll,
     updateById,
-    deleteById
+    deleteById,
+    updateStatusById
 }

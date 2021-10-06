@@ -83,7 +83,7 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "list customer",
+                        "name": "list membership",
                         "schema": {
                             "type": "object",
                             "required": [
@@ -158,7 +158,7 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "list membership",
+                        "name": "update membership by id",
 
                         "schema": {
                             "type": "object",
@@ -169,6 +169,51 @@
                             "properties": {
                                 "id": {
                                     "type": "integer"
+                                }
+                               
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Membership"
+                ]
+            }
+        },
+        "/membership/updateStatus": {
+            "put": {
+                "summary": "/membership/updateStatus",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "update status is active or not",
+
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "meb_id"
+                                
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "is_active": {
+                                    "type": "boolean"
                                 }
                                
                             }
@@ -352,7 +397,7 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "list membership_feature",
+                        "name": "update membership_feature",
 
                         "schema": {
                             "type": "object",
@@ -363,6 +408,51 @@
                             "properties": {
                                 "id": {
                                     "type": "integer"
+                                }
+                               
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Membership_feature"
+                ]
+            }
+        },
+        "/membership_feature/updateStatus": {
+            "put": {
+                "summary": "/membership_feature/updateStatus",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "update status is active or not",
+
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "mf_id"
+                                
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "is_active": {
+                                    "type": "boolean"
                                 }
                                
                             }
