@@ -17,6 +17,10 @@
         {
             "name": "Membership_feature",
             "description": ""
+        },
+        {
+            "name":"Product",
+            "description": ""
         }
     ],
     "basePath": "/api/v1",
@@ -498,6 +502,256 @@
                 ],
                 "tags": [
                     "Membership_feature"
+                ]
+            }
+        },
+        "/product/create": {
+            "post": {
+                "summary": "/product/create",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "product create",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "cat_id",
+                                "domain",
+                                "prod_name",
+                                "prod_feature",
+                                "prod_tech_spec",
+                                "prod_image1",
+                                "prod_price",
+                                "prod_tax",
+                                "country_origin"
+                            ],
+                            "properties": {
+                                "cat_id":{"type": "integer"},
+                                "domain":{"type": "string"},
+                                "prod_name":{"type": "string"},
+                                "prod_desc":{"type": "string"},
+                                "prod_feature":{"type": "string"},
+                                "prod_tech_spec":{"type": "string"},
+                                "prod_image1":{"type": "string"},
+                                "prod_image2":{"type": "string"},
+                                "prod_image3":{"type": "string"},
+                                "prod_image4":{"type": "string"},
+                                "prod_price":{"type":"double precision"},
+                                "prod_tax":{"type":"double precision"},
+                                "country_origin":{"type":"string"}
+
+
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Product"
+                ]
+            }
+        },
+        "/product/list": {
+            "post": {
+                "summary": "/product/list",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "list prodcut",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "limit",
+                                "offset"
+                            ],
+                            "properties": {
+                                "limit": {
+                                    "type": "integer"
+                                },
+                                "offset": {
+                                    "type": "integer"
+                                },
+                                "key": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Product"
+                ]
+            }
+        },
+        "/product/list/{id}": {
+            "get": {
+                "summary": "/product/list/{id}",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Product"
+                ]
+            }
+        },
+        "/product/update": {
+            "put": {
+                "summary": "/product/update",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "update product by id",
+
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "prod_id"
+                                
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                }
+                               
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Product"
+                ]
+            }
+        },
+        "/product/updateStatus": {
+            "put": {
+                "summary": "/product/updateStatus",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "update status is active or not",
+
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "prod_id"
+                                
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "is_active": {
+                                    "type": "boolean"
+                                }
+                               
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Product"
+                ]
+            }
+        },
+        "/product/delete/{id}": {
+            "delete": {
+                "summary": "/product/delete/{id}",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "Product"
                 ]
             }
         }
