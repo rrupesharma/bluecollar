@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
     await validate(req.body, rules, []);
     let limit = req.body.limit;
     let offset = req.body.offset;
-    let query = `select * from public.domain_tbl order by creation_dt desc limit ${limit} offset ${offset}`;
+    let query = `select * from public.domain_tbl where is_delete=false order by creation_dt desc limit ${limit} offset ${offset}`;
     let result = await pool.executeQueryWithMsg(
       query,
       [],
@@ -46,7 +46,7 @@ const getById = async (req, res) => {
     await validate(req.params, rules, []);
     let id = req.params.id;
 
-    let query = `select * from public.domain_tbl where d_id = ${id}`;
+    let query = `select * from public.domain_tbl where d_id = ${id} and is_delete=false`;
 
     let result = await pool.executeQueryWithMsg(
       query,
@@ -78,7 +78,7 @@ const del = async (req, res) => {
     await validate(req.params, rules, []);
     let id = req.params.id;
 
-    let query = `DELETE from public.domain_tbl where d_id = ${id}`;
+    let query = `update public.domain_tbl set is_delete = true where d_id = ${id}`;
 
     await pool.executeQuery(query, []);
     return returnStatus(res, {}, 200, "success");
@@ -102,22 +102,18 @@ const create = async (req, res) => {
       name: "required",
       description: "required",
       url: "required",
-      created_by: "required",
-      updated_by: "required",
     };
 
     await validate(req.body, rules, []);
     let name = req.body.name;
     let description = req.body.description;
     let url = req.body.url;
-    let created_by = req.body.created_by;
-    // let creation_dt = req.body.creation_dt;
-    let updated_by = req.body.updated_by;
     let is_active = req.body.is_active;
-    let is_delete = req.body.is_delete;
 
-    let query = `INSERT INTO public.domain_tbl (name,description,url,created_by,creation_dt,updated_by,is_active,is_delete) 
-        VALUES ('${name}','${description}','${url}',${created_by},now(),${updated_by},${is_active},${is_delete})`;
+    let query = `INSERT INTO public.domain_tbl (name,description,url,created_by,creation_dt,is_active) 
+        VALUES ('${name}','${description}','${url}',${
+      req.user.admin_id
+    },now(),${is_active || false})`;
 
     let result = await pool.executeQuery(query, []);
     return returnStatus(res, {}, 200, "successfully Created");
@@ -142,8 +138,6 @@ const update = async (req, res) => {
       name: "required",
       description: "required",
       url: "required",
-      created_by: "required",
-      updated_by: "required",
     };
 
     await validate(req.body, rules, []);
@@ -152,13 +146,10 @@ const update = async (req, res) => {
     let name = req.body.name;
     let description = req.body.description;
     let url = req.body.url;
-    let created_by = req.body.created_by;
-    let updated_by = req.body.updated_by;
     let is_active = req.body.is_active;
-    let is_delete = req.body.is_delete;
 
     let query = `UPDATE public.domain_tbl
-        SET name='${name}',description='${description}',url='${url}',created_by=${created_by}, updated_by=${updated_by}, is_active=${is_active}, is_delete=${is_delete}, updated_dt=NOW()
+        SET name='${name}',description='${description}',url='${url}', is_active=${is_active}, updated_by=${req.user.admin_id}, updated_dt=NOW()
         WHERE d_id = ${id}`;
 
     let result = await pool.executeQuery(query, []);

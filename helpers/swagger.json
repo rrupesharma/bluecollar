@@ -246,12 +246,20 @@
             "name": "admin create",
             "schema": {
               "type": "object",
-              "required": ["email", "first_name", "last_name"],
+              "required": [
+                "email",
+                "username",
+                "first_name",
+                "last_name",
+                "password"
+              ],
               "properties": {
                 "email": { "type": "string" },
+                "username": { "type": "string" },
                 "first_name": { "type": "string" },
                 "last_name": { "type": "string" },
-                "phone": { "type": "string" }
+                "phone": { "type": "string" },
+                "password": { "type": "string" }
               }
             }
           }
@@ -278,10 +286,17 @@
             "name": "admin create",
             "schema": {
               "type": "object",
-              "required": ["id", "email", "first_name", "last_name"],
+              "required": [
+                "id",
+                "username",
+                "email",
+                "first_name",
+                "last_name"
+              ],
               "properties": {
                 "id": { "type": "integer" },
                 "email": { "type": "string" },
+                "username": { "type": "string" },
                 "first_name": { "type": "string" },
                 "last_name": { "type": "string" },
                 "phone": { "type": "string" }
@@ -335,13 +350,7 @@
             "name": "create",
             "schema": {
               "type": "object",
-              "required": [
-                "name",
-                "description",
-                "url",
-                "created_by",
-                "updated_by"
-              ],
+              "required": ["name", "description", "url"],
               "properties": {
                 "name": {
                   "type": "string"
@@ -352,16 +361,7 @@
                 "url": {
                   "type": "string"
                 },
-                "created_by": {
-                  "type": "integer"
-                },
-                "updated_by": {
-                  "type": "integer"
-                },
                 "is_active": {
-                  "type": "boolean"
-                },
-                "is_delete": {
                   "type": "boolean"
                 }
               }
@@ -371,6 +371,11 @@
         "responses": {
           "$ref": "#/definitions/responses"
         },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
         "tags": ["Domain"]
       }
     },
@@ -443,23 +448,13 @@
             "name": "domain create",
             "schema": {
               "type": "object",
-              "required": [
-                "id",
-                "name",
-                "description",
-                "url",
-                "created_by",
-                "updated_by"
-              ],
+              "required": ["id", "name", "description", "url"],
               "properties": {
                 "id": { "type": "integer" },
                 "name": { "type": "string" },
                 "description": { "type": "string" },
                 "url": { "type": "string" },
-                "created_by": { "type": "integer" },
-                "updated_by": { "type": "integer" },
-                "is_active": { "type": "boolean" },
-                "is_delete": { "type": "boolean" }
+                "is_active": { "type": "boolean" }
               }
             }
           }
@@ -497,8 +492,170 @@
         ],
         "tags": ["Domain"]
       }
+    },
+
+    "/category/create": {
+      "post": {
+        "summary": "/category/create",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "category create",
+            "schema": {
+              "type": "object",
+              "required": [
+                "cat_name",
+                "cat_desc",
+                "cat_image1",
+                "cat_image2",
+                "orderno"
+              ],
+              "properties": {
+                "cat_pid": { "type": "integer" },
+                "domain": { "type": "object" },
+                "cat_name": { "type": "string" },
+                "cat_desc": { "type": "string" },
+                "cat_image1": { "type": "string" },
+                "cat_image2": { "type": "string" },
+                "orderno": { "type": "number" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Category"]
+      }
+    },
+    "/category/list": {
+      "post": {
+        "summary": "/category/list",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "list of category and sub category",
+            "schema": {
+              "type": "object",
+              "required": ["limit", "offset"],
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Category"]
+      }
+    },
+    "/category/list/{id}": {
+      "get": {
+        "summary": "/category/list/{id}",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Category"]
+      }
+    },
+    "/category/update": {
+      "put": {
+        "summary": "/category/update",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "category update",
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "cat_name",
+                "cat_desc",
+                "cat_image1",
+                "cat_image2"
+              ],
+              "properties": {
+                "id": { "type": "integer" },
+                "cat_name": { "type": "string" },
+                "cat_desc": { "type": "string" },
+                "cat_image1": { "type": "string" },
+                "cat_image2": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Category"]
+      }
+    },
+    "/category/del/{id}": {
+      "delete": {
+        "summary": "/category/del/{id}",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Category"]
+      }
     }
   },
+
   "securityDefinitions": {
     "accessToken": {
       "type": "apiKey",

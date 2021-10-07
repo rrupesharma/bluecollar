@@ -45,7 +45,7 @@ async function executeQueryWithMsg(query, bindvars = [], msg) {
 
       if (result.rows.length > 0) resolve(result.rows);
 
-      reject({ status: 404, message: msg, data: null });
+      reject({ status: 200, message: msg, data: null });
     } catch (error) {
       reject({ stack: error.stack, query: query });
     } finally {
