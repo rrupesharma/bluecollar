@@ -21,6 +21,10 @@
         {
             "name":"Product",
             "description": ""
+        },
+        {
+            "name":"membership_reward_rule",
+            "description":""
         }
     ],
     "basePath": "/api/v1",
@@ -53,11 +57,11 @@
                                 "orderno"
                             ],
                             "properties": {
-                                "meb_id":{"type": "string"},
+                                "domain":{"type":"string"},
                                 "title":{"type": "string"},
-                                "image1":{"type": "integer"},
-                                "price":{"type": "string"},
-                                "orderno":{"type": "integer"}
+                                "image1":{"type": "string"},
+                                "price":{"type": "number"},
+                                "orderno":{"type": "number"}
                             }
                         }
                     }
@@ -161,20 +165,23 @@
                 ],
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "in": "body",
                         "name": "update membership by id",
 
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "meb_id"
-                                
-                            ],
+                            "required": false,
                             "properties": {
-                                "id": {
-                                    "type": "integer"
-                                }
-                               
+                                "domain":{"type":"string"},
+                                "title":{"type": "string"},
+                                "image1":{"type": "string"},
+                                "price":{"type": "number"},
+                                "orderno":{"type": "number"}                              
                             }
                         }
                     }
@@ -203,19 +210,18 @@
                 ],
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "in": "body",
-                        "name": "update status is active or not",
+                        "name": "Enter active/inactive status",
 
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "meb_id"
-                                
-                            ],
+                            "required": true,
                             "properties": {
-                                "id": {
-                                    "type": "integer"
-                                },
                                 "is_active": {
                                     "type": "boolean"
                                 }
@@ -237,9 +243,9 @@
                 ]
             }
         },
-        "/membership/delete/{id}": {
+        "/membership/del/{id}": {
             "delete": {
-                "summary": "/membership/delete/{id}",
+                "summary": "/membership/del/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -399,20 +405,26 @@
                     "application/json"
                 ],
                 "parameters": [
+                   {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                   },
                     {
                         "in": "body",
                         "name": "update membership_feature",
 
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "mf_id"
-                                
-                            ],
+                            "required": false,
                             "properties": {
-                                "id": {
-                                    "type": "integer"
-                                }
+                                "meb_id":{"type": "string"},
+                                "domain":{"type":"array"},
+                                "title":{"type": "string"},
+                                "description":{"type":"string"},
+                                "image1":{"type": "string"},
+                                "price":{"type": "number"},
+                                "orderno":{"type": "number"}
                                
                             }
                         }
@@ -442,23 +454,21 @@
                 ],
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                   },
+                     {
                         "in": "body",
                         "name": "update status is active or not",
 
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "mf_id"
-                                
-                            ],
+                            "required": true,
                             "properties": {
-                                "id": {
-                                    "type": "integer"
-                                },
                                 "is_active": {
                                     "type": "boolean"
                                 }
-                               
                             }
                         }
                     }
@@ -476,9 +486,9 @@
                 ]
             }
         },
-        "/membership_feature/delete/{id}": {
+        "/membership_feature/del/{id}": {
             "delete": {
-                "summary": "/membership_feature/delete/{id}",
+                "summary": "/membership_feature/del/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -650,20 +660,31 @@
                 ],
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                   },
+                    {
                         "in": "body",
-                        "name": "update product by id",
+                        "name": "enter update details",
 
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "prod_id"
-                                
-                            ],
+                            "required": false,
                             "properties": {
-                                "id": {
-                                    "type": "integer"
-                                }
-                               
+                                "cat_id":{"type": "integer"},
+                                "domain":{"type": "array"},
+                                "prod_name":{"type": "string"},
+                                "prod_desc":{"type": "string"},
+                                "prod_feature":{"type": "string"},
+                                "prod_tech_spec":{"type": "string"},
+                                "prod_image1":{"type": "string"},
+                                "prod_image2":{"type": "string"},
+                                "prod_image3":{"type": "string"},
+                                "prod_image4":{"type": "string"},
+                                "prod_price":{"type":"number"},
+                                "prod_tax":{"type":"number"},
+                                "country_origin":{"type":"string"}                              
                             }
                         }
                     }
@@ -692,19 +713,17 @@
                 ],
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                   }, {
                         "in": "body",
                         "name": "update status is active or not",
 
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "prod_id"
-                                
-                            ],
+                            "required":true,
                             "properties": {
-                                "id": {
-                                    "type": "integer"
-                                },
                                 "is_active": {
                                     "type": "boolean"
                                 }
@@ -726,9 +745,9 @@
                 ]
             }
         },
-        "/product/delete/{id}": {
+        "/product/del/{id}": {
             "delete": {
-                "summary": "/product/delete/{id}",
+                "summary": "/product/del/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -752,6 +771,249 @@
                 ],
                 "tags": [
                     "Product"
+                ]
+            }
+        },
+        "/membership_reward_rule/create": {
+            "post": {
+                "summary": "/membership_reward_rule/create",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "membership_reward_rule create",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "domain",
+                                "title",
+                                "orderno",
+                                "starttime",
+                                "endtime"
+                            ],
+                            "properties": {
+                                "meb_id":{"type": "string"},
+                                "domain":{"type":"array"},
+                                "title":{"type": "string"},
+                                "description":{"type": "string"},
+                                "orderno":{"type": "number"},
+                                "starttime":"string",
+                                "endtime":"string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "membership_reward_rule"
+                ]
+            }
+        },
+        "/membership_reward_rule/list": {
+            "post": {
+                "summary": "/membership_reward_rule/list",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "list membership_reward_rule",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "limit",
+                                "offset"
+                            ],
+                            "properties": {
+                                "limit": {
+                                    "type": "integer"
+                                },
+                                "offset": {
+                                    "type": "integer"
+                                },
+                                "key": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "membership_reward_rule"
+                ]
+            }
+        },
+        "/membership_reward_rule/list/{id}": {
+            "get": {
+                "summary": "/membership_reward_rule/list/{id}",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "membership_reward_rule"
+                ]
+            }
+        },
+        "/membership_reward_rule/update": {
+            "put": {
+                "summary": "/membership_reward_rule/update",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                      {
+                        "in": "body",
+                        "name": "update membership by id",
+
+                        "schema": {
+                            "type": "object",
+                            "required": false,
+                            "properties": {
+                                "meb_id":{"type": "string"},
+                                "domain":{"type":"array"},
+                                "title":{"type": "string"},
+                                "description":{"type": "string"},
+                                "orderno":{"type": "number"},
+                                "starttime":"string",
+                                "endtime":"string"
+                               
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "membership_reward_rule"
+                ]
+            }
+        },
+        "/membership_reward_rule/updateStatus": {
+            "put": {
+                "summary": "/membership_reward_rule/updateStatus",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "update status is active or not",
+
+                        "schema": {
+                            "type": "object",
+                            "required": true,
+                            "properties": {
+                                "is_active": {
+                                    "type": "boolean"
+                                }
+                               
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "membership_reward_rule"
+                ]
+            }
+        },
+        "/membership_reward_rule/del/{id}": {
+            "delete": {
+                "summary": "/membership_reward_rule/del/{id}",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/definitions/responses"
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ],
+                "tags": [
+                    "membership_reward_rule"
                 ]
             }
         }

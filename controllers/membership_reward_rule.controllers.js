@@ -7,11 +7,11 @@ const config = require('config');
 const create = async (req, res)=>{
     try {
         let rules = {  
-            meb_id:'required',
             domain:'required',
             title: 'required',
-            image1: 'required',
-            orderno: 'required'
+            orderno: 'required',
+            starttime:'required',
+            endtime:'required'
         }
 
         await validate(req.body, rules,[]);
@@ -19,13 +19,15 @@ const create = async (req, res)=>{
         let domain = req.body.domain;
         let title = req.body.title;
         let description = req.body.description;
-        let image1 = req.body.image1;
         let orderno = req.body.orderno;
+        let starttime = req.body.starttime;
+        let endtime = req.body.endtime;
+       
       
 
         
-        let query = `INSERT INTO public.membership_feature_tbl(meb_id, domain, title, description, image1, orderno, created_by, creation_dt,updated_by ,updated_dt) 
-        VALUES (${meb_id},'${domain}','${title}','${description}','${image1}',${orderno},${meb_id},now(),${meb_id},now())`;
+        let query = `INSERT INTO public.membership_reward_rule(meb_id, domain, title, description, orderno, starttime, endtime, creation_dt, updated_dt) 
+        VALUES (${meb_id},'${domain}','${title}','${description}',${orderno},'${starttime}','${endtime}',now(),now())`;
         
         let result =  await pool.executeQuery(query,[])
         return returnStatus(res, {}, 200, 'successfully created')
@@ -49,11 +51,12 @@ const getAll = async (req, res)=>{
         await validate(req.body, rules,[]);
         let limit = req.body.limit;
         let offset = req.body.offset;
-
-        let query = `select * from public.membership_feature_tbl  order by creation_dt desc limit ${limit} offset ${offset}`;
+        let query = `select * from public.membership_reward_rule  order by creation_dt desc limit ${limit} offset ${offset}`;
+       
         let result =  await pool.executeQueryWithMsg(query,[],'No records available.')
-        query = `select count(mf_id) as cnt from public.membership_feature_tbl where is_delete = false`;
+        query = `select count(rp_id) as cnt from public.membership_reward_rule where is_delete = false`;
         let resultCount =  await pool.executeQuery(query,[])
+
         let data = {
             totalCount : parseInt(resultCount.rows[0]['cnt']),
             result : result
@@ -75,8 +78,8 @@ const getById = async (req, res)=>{
             id: 'required'
         }
         await validate(req.params, rules,[]);
-        let mf_id = req.params.id;
-        let query = `select * from public.membership_feature_tbl where mf_id = ${mf_id}`;
+        let rp_id = req.params.id;
+        let query = `select * from public.membership_reward_rule where rp_id = ${rp_id}`;
         let result =  await pool.executeQueryWithMsg(query,[],'No records available.')
         let data = result[0];
         return returnStatus(res, data, 200, 'success')
@@ -94,20 +97,22 @@ const updateById = async (req, res)=>{
     try {
         let rules = {
             id: 'required'
+
         }
+
         await validate(req.params, rules,[]);
-        
-        let mf_id = req.params.id;
+        let rp_id = req.params.id;
         let meb_id = req.body.meb_id;
         let domain = req.body.domain;
         let title = req.body.title;
         let description = req.body.description;
-        let image1 = req.body.image1;
         let orderno = req.body.orderno;
+        let starttime = req.body.starttime;
+        let endtime = req.body.endtime;
 
-        let query = `UPDATE public.membership_feature_tbl
-        SET meb_id='${meb_id}' domain='${domain}' title ='${title}',description ='${description}',image1 =${image1}, orderno =${orderno},updated_dt = now()
-        WHERE mf_id = ${mf_id}`;
+        let query = `UPDATE public.membership_reward_rule
+        SET meb_id = ${meb_id}, domain='${domain}',title ='${title}',description ='${description}',orderno ='${orderno}',starttime = '${starttime}',endtime = '${endtime}',updated_dt = now()
+        WHERE rp_id = ${rp_id}`;
 
         let result =  await pool.executeQuery(query,[])
         return returnStatus(res, {}, 200, 'successfully updated')
@@ -127,12 +132,12 @@ const updateStatusById = async (req, res)=>{
         }
 
         await validate(req.params, rules,[]);
-            let mf_id = req.params.id;
+            let rp_id = req.params.id;
             let is_active = req.body.is_active;
 
-        let query = `UPDATE public.membership_feature_tbl
+        let query = `UPDATE public.membership_reward_rule
         SET is_active = ${is_active}
-        WHERE mf_id = ${mf_id}`;
+        WHERE rp_id = ${rp_id}`;
 
         let result =  await pool.executeQuery(query,[])
         return returnStatus(res, {}, 200, 'successfully updated')
@@ -156,10 +161,10 @@ const deleteById = async (req, res)=>{
             id: 'required'
         }
         await validate(req.params, rules,[]);
-        let mf_id = req.params.id;
+        let rp_id = req.params.id;
         let query = `DELETE
-        from public.membership_feature_tbl
-        where mf_id = ${mf_id}`;
+        from public.membership_reward_rule
+        where rp_id = ${rp_id}`;
         await pool.executeQuery(query,[])
         return returnStatus(res, {}, 200, 'success')
     } catch (error) {
@@ -179,5 +184,4 @@ module.exports = {
     updateById,
     deleteById,
     updateStatusById
-
 }

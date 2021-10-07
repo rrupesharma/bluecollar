@@ -7,6 +7,6 @@ router.post("/create",product.create);
 router.put("/update/:id",product.updateById);
 router.delete("/del/:id",product.deleteById);
 router.get("/list/:id",product.getById);
-router.get("/list",product.getAll);
+router.post("/list",product.getAll);
 router.put("/updateStatus/:id",product.updateStatusById);
 module.exports = router;

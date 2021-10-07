@@ -38,8 +38,6 @@ const create = async (req, res)=>{
         return returnStatus(res, error.erorrLog || {}, error.status || 500, error.message)
     }
 }
-
-
 const getAll = async (req, res)=>{
     try {
         let rules = {
@@ -50,6 +48,7 @@ const getAll = async (req, res)=>{
         let limit = req.body.limit;
         let offset = req.body.offset;
         let query = `select * from public.membership_tbl  order by creation_dt desc limit ${limit} offset ${offset}`;
+       
         let result =  await pool.executeQueryWithMsg(query,[],'No records available.')
         query = `select count(meb_id) as cnt from public.membership_tbl where is_delete = false`;
         let resultCount =  await pool.executeQuery(query,[])
@@ -68,7 +67,6 @@ const getAll = async (req, res)=>{
         return returnStatus(res, error.erorrLog || {}, error.status || 500, error.message)
     }
 }
-
 const getById = async (req, res)=>{
     try {
         let rules = {
@@ -89,7 +87,6 @@ const getById = async (req, res)=>{
         return returnStatus(res, error.erorrLog || {}, error.status || 500, error.message)
     }
 }
-
 const updateById = async (req, res)=>{
     try {
         let rules = {
@@ -107,7 +104,7 @@ const updateById = async (req, res)=>{
         let orderno = req.body.orderno;
 
         let query = `UPDATE public.membership_tbl
-        SET domain='${domain}' title ='${title}',description ='${description}',image1 ='${image1}',price =${price},orderno =${orderno},updated_by=${meb_id},updated_dt = now()
+        SET domain='${domain}' title ='${title}',description ='${description}',image1 ='${image1}',price =${price},orderno =${orderno},updated_dt = now()
         WHERE meb_id = ${meb_id}`;
 
         let result =  await pool.executeQuery(query,[])
@@ -150,7 +147,6 @@ const updateStatusById = async (req, res)=>{
 
 
 }
-
 const deleteById = async (req, res)=>{
     try {
         let rules = {
