@@ -36,7 +36,7 @@ const create = async (req, res)=>{
 
         
         let query = `INSERT INTO public.product_tbl(cat_id, domain, prod_name, prod_desc, prod_feature, prod_tech_spec, prod_image1, prod_image2, prod_image3, prod_image4, prod_price, prod_tax, country_origin, creation_dt, updated_dt) 
-        VALUES (${cat_id},'${domain}','${prod_name}','${prod_desc}','${prod_feature}','${prod_tech_spec}','${prod_image1}','${prod_image2}','${prod_image3}','${prod_image4}',${prod_price},${prod_tax},'${country_origin}',now(),now())`;
+        VALUES (${cat_id},'{${domain}}','${prod_name}','${prod_desc}','${prod_feature}','${prod_tech_spec}','${prod_image1}','${prod_image2}','${prod_image3}','${prod_image4}',${prod_price},${prod_tax},'${country_origin}',now(),now())`;
         
         let result =  await pool.executeQuery(query,[])
         return returnStatus(res, {}, 200, 'successfully created')
@@ -125,7 +125,7 @@ const updateById = async (req, res)=>{
         let country_origin = req.body.country_origin
 
         let query = `UPDATE public.product_tbl
-        SET cat_id=${cat_id}, domain='${domain}', prod_name='${prod_name}', prod_desc='${prod_desc}', prod_feature='${prod_feature}', prod_tech_spec='${prod_tech_spec}', prod_image1='${prod_image1}', prod_image2='${prod_image2}', prod_image3='${prod_image3}', prod_image4='${prod_image4}', prod_price=${prod_price}, prod_tax=${prod_tax}, country_origin='${country_origin}'updated_dt = now()
+        SET cat_id=${cat_id}, domain='{${domain}}', prod_name='${prod_name}', prod_desc='${prod_desc}', prod_feature='${prod_feature}', prod_tech_spec='${prod_tech_spec}', prod_image1='${prod_image1}', prod_image2='${prod_image2}', prod_image3='${prod_image3}', prod_image4='${prod_image4}', prod_price=${prod_price}, prod_tax=${prod_tax}, country_origin='${country_origin}',updated_dt = now()
         WHERE prod_id = ${prod_id}`;
 
         let result =  await pool.executeQuery(query,[])

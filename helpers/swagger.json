@@ -23,7 +23,7 @@
             "description": ""
         },
         {
-            "name":"membership_reward_rule",
+            "name":"Membership_reward_rule",
             "description":""
         }
     ],
@@ -52,13 +52,17 @@
                             "required": [
                                 "domain",
                                 "title",
+                                "description",
                                 "image1",
                                 "price",
                                 "orderno"
                             ],
                             "properties": {
-                                "domain":{"type":"string"},
+                                "domain":{"type":"array",
+                                    "items":{"type":"string"}                    
+                                },
                                 "title":{"type": "string"},
+                                "description":{"type":"string"},
                                 "image1":{"type": "string"},
                                 "price":{"type": "number"},
                                 "orderno":{"type": "number"}
@@ -154,9 +158,9 @@
                 ]
             }
         },
-        "/membership/update": {
+        "/membership/update/{id}": {
             "put": {
-                "summary": "/membership/update",
+                "summary": "/membership/update/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -171,17 +175,25 @@
                     },
                     {
                         "in": "body",
-                        "name": "update membership by id",
-
+                        "name": "membership update",
                         "schema": {
                             "type": "object",
-                            "required": false,
+                            "required": [
+                                "domain",
+                                "title",
+                                "image1",
+                                "price",
+                                "orderno"
+                            ],
                             "properties": {
-                                "domain":{"type":"string"},
+                                "domain":{"type":"array",
+                                    "items":{"type":"string"}                    
+                                },
                                 "title":{"type": "string"},
+                                "description":{"type":"string"},
                                 "image1":{"type": "string"},
                                 "price":{"type": "number"},
-                                "orderno":{"type": "number"}                              
+                                "orderno":{"type": "number"}
                             }
                         }
                     }
@@ -199,9 +211,9 @@
                 ]
             }
         },
-        "/membership/updateStatus": {
+        "/membership/updateStatus/{id}": {
             "put": {
-                "summary": "/membership/updateStatus",
+                "summary": "/membership/updateStatus/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -221,7 +233,9 @@
                         "schema": {
                             "type": "object",
                             "required": true,
-                            "properties": {
+                            "properties": 
+                             {
+
                                 "is_active": {
                                     "type": "boolean"
                                 }
@@ -296,12 +310,14 @@
                                 "orderno"
                             ],
                             "properties": {
-                                "meb_id":{"type": "string"},
-                                "domain":{"type":"text array"},
+                                "meb_id":{"type": "integer"},
+                                "domain":{"type":"array",
+                                    "items":{"type":"string"}                    
+                                },
                                 "title":{"type": "string"},
                                 "description":{"type":"string"},
-                                "image1":{"type": "integer"},
-                                "price":{"type": "string"},
+                                "image1":{"type": "string"},
+                                "price":{"type": "integer"},
                                 "orderno":{"type": "integer"}
                             }
                         }
@@ -395,9 +411,9 @@
                 ]
             }
         },
-        "/membership_feature/update": {
+        "/membership_feature/update/{id}": {
             "put": {
-                "summary": "/membership_feature/update",
+                "summary": "/membership_feature/update/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -416,10 +432,19 @@
 
                         "schema": {
                             "type": "object",
-                            "required": false,
+                            "required": [
+                                "meb_id",
+                                "domain",
+                                "title",
+                                "image1",
+                                "price",
+                                "orderno"
+                            ],
                             "properties": {
-                                "meb_id":{"type": "string"},
-                                "domain":{"type":"array"},
+                                "meb_id":{"type": "integer"},
+                                "domain":{"type":"array",
+                                    "items":{"type":"string"}                    
+                                },
                                 "title":{"type": "string"},
                                 "description":{"type":"string"},
                                 "image1":{"type": "string"},
@@ -443,9 +468,9 @@
                 ]
             }
         },
-        "/membership_feature/updateStatus": {
+        "/membership_feature/updateStatus/{id}": {
             "put": {
-                "summary": "/membership_feature/updateStatus",
+                "summary": "/membership_feature/updateStatus/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -543,7 +568,9 @@
                             ],
                             "properties": {
                                 "cat_id":{"type": "integer"},
-                                "domain":{"type": "string"},
+                                "domain":{"type":"array",
+                                    "items":{"type":"string"}                    
+                                },
                                 "prod_name":{"type": "string"},
                                 "prod_desc":{"type": "string"},
                                 "prod_feature":{"type": "string"},
@@ -552,8 +579,8 @@
                                 "prod_image2":{"type": "string"},
                                 "prod_image3":{"type": "string"},
                                 "prod_image4":{"type": "string"},
-                                "prod_price":{"type":"double precision"},
-                                "prod_tax":{"type":"double precision"},
+                                "prod_price":{"type":"number"},
+                                "prod_tax":{"type":"number"},
                                 "country_origin":{"type":"string"}
 
 
@@ -649,9 +676,9 @@
                 ]
             }
         },
-        "/product/update": {
+        "/product/update/{id}": {
             "put": {
-                "summary": "/product/update",
+                "summary": "/product/update/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -670,10 +697,22 @@
 
                         "schema": {
                             "type": "object",
-                            "required": false,
+                            "required": [
+                                "cat_id",
+                                "domain",
+                                "prod_name",
+                                "prod_feature",
+                                "prod_tech_spec",
+                                "prod_image1",
+                                "prod_price",
+                                "prod_tax",
+                                "country_origin"
+                            ],
                             "properties": {
                                 "cat_id":{"type": "integer"},
-                                "domain":{"type": "array"},
+                                "domain":{"type":"array",
+                                    "items":{"type":"string"}                    
+                                },
                                 "prod_name":{"type": "string"},
                                 "prod_desc":{"type": "string"},
                                 "prod_feature":{"type": "string"},
@@ -702,9 +741,9 @@
                 ]
             }
         },
-        "/product/updateStatus": {
+        "/product/updateStatus/{id}": {
             "put": {
-                "summary": "/product/updateStatus",
+                "summary": "/product/updateStatus/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -786,24 +825,29 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "membership_reward_rule create",
+                        "name": "memberahip reward rule  create",
                         "schema": {
                             "type": "object",
                             "required": [
+                                "meb_id",
                                 "domain",
                                 "title",
+                                "description",
                                 "orderno",
                                 "starttime",
                                 "endtime"
+                            
                             ],
                             "properties": {
-                                "meb_id":{"type": "string"},
-                                "domain":{"type":"array"},
-                                "title":{"type": "string"},
-                                "description":{"type": "string"},
-                                "orderno":{"type": "number"},
-                                "starttime":"string",
-                                "endtime":"string"
+                                "meb_id":{"type": "integer"},
+                                "domain":{"type":"array",
+                                    "items":{"type":"string"}                    
+                                },
+                                "title":{"type":"string"},
+                                "description":{"type":"string"},
+                                "orderno":{"type":"number"},
+                                "starttime":{"type":"string"},
+                                "endtime":{"type":"string"}
                             }
                         }
                     }
@@ -817,7 +861,7 @@
                     }
                 ],
                 "tags": [
-                    "membership_reward_rule"
+                    "Membership_reward_rule"
                 ]
             }
         },
@@ -863,13 +907,13 @@
                     }
                 ],
                 "tags": [
-                    "membership_reward_rule"
+                    "Membership_reward_rule"
                 ]
             }
         },
         "/membership_reward_rule/list/{id}": {
             "get": {
-                "summary": "/membership_reward_rule/list/{id}",
+                "summary": "/Membership_reward_rule/list/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -892,13 +936,13 @@
                     }
                 ],
                 "tags": [
-                    "membership_reward_rule"
+                    "Membership_reward_rule"
                 ]
             }
         },
-        "/membership_reward_rule/update": {
+        "/Membership_reward_rule/update/{id}": {
             "put": {
-                "summary": "/membership_reward_rule/update",
+                "summary": "/Membership_reward_rule/update/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -910,23 +954,32 @@
                         "name": "id",
                         "in": "path",
                         "required": true
-                    },
-                      {
+                   },
+                    {
                         "in": "body",
-                        "name": "update membership by id",
+                        "name": "enter update details",
 
                         "schema": {
                             "type": "object",
-                            "required": false,
+                            "required": [
+                                "meb_id",
+                                "domain",
+                                "title",
+                                "description",
+                                "orderno",
+                                "starttime",
+                                "endtime"
+                            ],
                             "properties": {
-                                "meb_id":{"type": "string"},
-                                "domain":{"type":"array"},
-                                "title":{"type": "string"},
-                                "description":{"type": "string"},
-                                "orderno":{"type": "number"},
-                                "starttime":"string",
-                                "endtime":"string"
-                               
+                                "meb_id":{"type": "integer"},
+                                "domain":{"type":"array",
+                                    "items":{"type":"string"}                    
+                                },
+                                "title":{"type":"string"},
+                                "description":{"type":"string"},
+                                "orderno":{"type":"number"},
+                                "starttime":{"type":"string"},
+                                "endtime":{"type":"string"}                           
                             }
                         }
                     }
@@ -940,13 +993,13 @@
                     }
                 ],
                 "tags": [
-                    "membership_reward_rule"
+                    "Membership_reward_rule"
                 ]
             }
         },
-        "/membership_reward_rule/updateStatus": {
+        "/Membership_reward_rule/updateStatus/{id}": {
             "put": {
-                "summary": "/membership_reward_rule/updateStatus",
+                "summary": "/Membership_reward_rule/updateStatus/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -958,14 +1011,13 @@
                         "name": "id",
                         "in": "path",
                         "required": true
-                    },
-                    {
+                   }, {
                         "in": "body",
                         "name": "update status is active or not",
 
                         "schema": {
                             "type": "object",
-                            "required": true,
+                            "required":true,
                             "properties": {
                                 "is_active": {
                                     "type": "boolean"
@@ -984,13 +1036,13 @@
                     }
                 ],
                 "tags": [
-                    "membership_reward_rule"
+                    "Membership_reward_rule"
                 ]
             }
         },
-        "/membership_reward_rule/del/{id}": {
+        "/Membership_reward_rule/del/{id}": {
             "delete": {
-                "summary": "/membership_reward_rule/del/{id}",
+                "summary": "/Membership_reward_rule/del/{id}",
                 "produces": [
                     "application/json"
                 ],
@@ -1013,10 +1065,11 @@
                     }
                 ],
                 "tags": [
-                    "membership_reward_rule"
+                    "Membership_reward_rule"
                 ]
             }
         }
+ 
     },
     
     "securityDefinitions": {

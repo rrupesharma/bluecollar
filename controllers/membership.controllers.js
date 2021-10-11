@@ -25,7 +25,7 @@ const create = async (req, res)=>{
 
         
         let query = `INSERT INTO public.membership_tbl(domain, title, description, image1, price, orderno, creation_dt, updated_dt) 
-        VALUES ('${domain}','${title}','${description}','${image1}',${price},${orderno},now(),now())`;
+        VALUES ('{${domain}}','${title}','${description}','${image1}',${price},${orderno},now(),now())`;
         
         let result =  await pool.executeQuery(query,[])
         return returnStatus(res, {}, 200, 'successfully created')
@@ -104,7 +104,7 @@ const updateById = async (req, res)=>{
         let orderno = req.body.orderno;
 
         let query = `UPDATE public.membership_tbl
-        SET domain='${domain}' title ='${title}',description ='${description}',image1 ='${image1}',price =${price},orderno =${orderno},updated_dt = now()
+        SET domain='{${domain}}', title ='${title}',description ='${description}',image1 ='${image1}',price =${price},orderno =${orderno},updated_dt = now()
         WHERE meb_id = ${meb_id}`;
 
         let result =  await pool.executeQuery(query,[])

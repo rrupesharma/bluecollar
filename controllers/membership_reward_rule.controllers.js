@@ -7,6 +7,7 @@ const config = require('config');
 const create = async (req, res)=>{
     try {
         let rules = {  
+            meb_id:'required',
             domain:'required',
             title: 'required',
             orderno: 'required',
@@ -27,7 +28,7 @@ const create = async (req, res)=>{
 
         
         let query = `INSERT INTO public.membership_reward_rule(meb_id, domain, title, description, orderno, starttime, endtime, creation_dt, updated_dt) 
-        VALUES (${meb_id},'${domain}','${title}','${description}',${orderno},'${starttime}','${endtime}',now(),now())`;
+        VALUES (${meb_id},'{${domain}}','${title}','${description}',${orderno},'${starttime}','${endtime}',now(),now())`;
         
         let result =  await pool.executeQuery(query,[])
         return returnStatus(res, {}, 200, 'successfully created')
@@ -40,8 +41,6 @@ const create = async (req, res)=>{
         return returnStatus(res, error.erorrLog || {}, error.status || 500, error.message)
     }
 }
-
-
 const getAll = async (req, res)=>{
     try {
         let rules = {
@@ -71,7 +70,6 @@ const getAll = async (req, res)=>{
         return returnStatus(res, error.erorrLog || {}, error.status || 500, error.message)
     }
 }
-
 const getById = async (req, res)=>{
     try {
         let rules = {
@@ -92,14 +90,11 @@ const getById = async (req, res)=>{
         return returnStatus(res, error.erorrLog || {}, error.status || 500, error.message)
     }
 }
-
 const updateById = async (req, res)=>{
     try {
         let rules = {
             id: 'required'
-
         }
-
         await validate(req.params, rules,[]);
         let rp_id = req.params.id;
         let meb_id = req.body.meb_id;
@@ -111,7 +106,7 @@ const updateById = async (req, res)=>{
         let endtime = req.body.endtime;
 
         let query = `UPDATE public.membership_reward_rule
-        SET meb_id = ${meb_id}, domain='${domain}',title ='${title}',description ='${description}',orderno ='${orderno}',starttime = '${starttime}',endtime = '${endtime}',updated_dt = now()
+        SET meb_id = ${meb_id}, domain='{${domain}}',title ='${title}',description ='${description}',orderno ='${orderno}',starttime = '${starttime}',endtime = '${endtime}',updated_dt = now()
         WHERE rp_id = ${rp_id}`;
 
         let result =  await pool.executeQuery(query,[])
@@ -154,7 +149,6 @@ const updateStatusById = async (req, res)=>{
 
 
 }
-
 const deleteById = async (req, res)=>{
     try {
         let rules = {
