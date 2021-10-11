@@ -514,7 +514,12 @@
               ],
               "properties": {
                 "cat_pid": { "type": "integer" },
-                "domain": { "type": "object" },
+                "domain": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "cat_name": { "type": "string" },
                 "cat_desc": { "type": "string" },
                 "cat_image1": { "type": "string" },
@@ -652,6 +657,166 @@
           }
         ],
         "tags": ["Category"]
+      }
+    },
+
+    "/page/create": {
+      "post": {
+        "summary": "/page/create",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "create",
+            "schema": {
+              "type": "object",
+              "required": ["page_name", "page_body", "domain"],
+              "properties": {
+                "page_name": {
+                  "type": "string"
+                },
+                "page_body": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Page"]
+      }
+    },
+    "/page/list": {
+      "post": {
+        "summary": "/page/list",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "list page",
+            "schema": {
+              "type": "object",
+              "required": ["limit", "offset"],
+              "properties": {
+                "limit": {
+                  "type": "integer"
+                },
+                "offset": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Page"]
+      }
+    },
+
+    "/page/list/{id}": {
+      "get": {
+        "summary": "/page/list/{id}",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Page"]
+      }
+    },
+    "/page/del/{id}": {
+      "delete": {
+        "summary": "/page/del/{id}",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Page"]
+      }
+    },
+    "/page/update": {
+      "put": {
+        "summary": "/page/update",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "page update",
+            "schema": {
+              "type": "object",
+              "required": ["id", "page_name", "page_body", "domain"],
+              "properties": {
+                "id": { "type": "integer" },
+                "page_name": { "type": "string" },
+                "page_body": { "type": "string" },
+                "domain": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "is_active": { "type": "boolean" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": ["Page"]
       }
     }
   },

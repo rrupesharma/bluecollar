@@ -11,10 +11,10 @@
     "pass": ""
   },
   "sandboxMail": {
-    "host": "",
-    "from": "",
-    "user": "",
-    "pass": ""
+    "host": "smtp.gmail.com",
+    "from": "Sunshine Support <sunshinedev37@gmail.com>",
+    "user": "sunshinedev37@gmail.com",
+    "pass": "$undev@123"
   },
   "encrypt": {
     "salt": "T48vA0NTQ90jcz6T4TvA0NTQ90sZ456jU0MT"

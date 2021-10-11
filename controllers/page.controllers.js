@@ -6,25 +6,21 @@ const config = require("config");
 const create = async (req, res) => {
   try {
     let rules = {
-      cat_name: "required",
-      cat_desc: "required",
-      cat_image1: "required",
-      cat_image2: "required",
-      orderno: "required",
+      page_name: "required",
+      page_body: "required",
+      domain: "required",
     };
 
     await validate(req.body, rules, []);
-    let data = req.body;
-    let query = `INSERT INTO public.category_tbl(
-        cat_pid, domain, cat_name, cat_desc, cat_image1, cat_image2, orderno, created_by, creation_dt)
-              VALUES (${data.cat_pid || 0}, '{${data.domain}}', '${
-      data.cat_name
-    }', '${data.cat_desc}', '${data.cat_image1}', '${data.cat_image2}', ${
-      data.orderno
-    }, ${req.user.admin_id}, now()) returning cat_id`;
+    let page_name = req.body.page_name;
+    let page_body = req.body.page_body;
+    let domain = req.body.domain;
+
+    let query = `INSERT INTO public.page_tbl (page_name,page_body,domain,created_by,creation_dt) 
+          VALUES ('${page_name}','${page_body}','{${domain}}',${req.user.admin_id},now())`;
 
     let result = await pool.executeQuery(query, []);
-    return returnStatus(res, {}, 200, "success");
+    return returnStatus(res, {}, 200, "successfully Created");
   } catch (error) {
     if (error.stack) {
       console.log("error", new Date(), ":", error);
@@ -45,35 +41,18 @@ const getAll = async (req, res) => {
       limit: "required",
       offset: "required",
     };
-
     await validate(req.body, rules, []);
     let limit = req.body.limit;
     let offset = req.body.offset;
-    let query = `SELECT cat_id, cat_pid, cat_name, domain FROM category_tbl where is_delete=false ORDER BY cat_name limit ${limit} offset ${offset}`;
+    let query = `select * from public.page_tbl where is_delete=false order by creation_dt desc limit ${limit} offset ${offset}`;
     let result = await pool.executeQueryWithMsg(
       query,
       [],
       "No records available."
     );
-    let nested = subCategory(result);
-    function subCategory(data, parentId = 0) {
-      var out = [];
-      for (var i in data) {
-        if (data[i].cat_pid == parentId) {
-          var children = subCategory(data, data[i].cat_id);
-
-          if (children.length) {
-            data[i].subCategory = children;
-          }
-          out.push(data[i]);
-        }
-      }
-      return out;
-    }
-
     let data = {
-      result: nested,
-      requestBody: req.body,
+      totalCount: parseInt(result.length),
+      result: result,
     };
     return returnStatus(res, data, 200, "success");
   } catch (error) {
@@ -98,14 +77,16 @@ const getById = async (req, res) => {
 
     await validate(req.params, rules, []);
     let id = req.params.id;
-    let query = `select cat_id, cat_name from category_tbl where cat_pid=${id} and is_delete = false`;
+
+    let query = `select * from public.page_tbl where page_id = ${id} and is_delete=false`;
 
     let result = await pool.executeQueryWithMsg(
       query,
       [],
       "No records available."
     );
-    return returnStatus(res, result, 200, "success");
+    let data = result[0];
+    return returnStatus(res, data, 200, "success");
   } catch (error) {
     if (error.stack) {
       console.log("error", new Date(), ":", error);
@@ -120,39 +101,7 @@ const getById = async (req, res) => {
   }
 };
 
-const updateById = async (req, res) => {
-  try {
-    let rules = {
-      id: "required",
-      cat_name: "required",
-      cat_desc: "required",
-      cat_image1: "required",
-      cat_image2: "required",
-    };
-
-    await validate(req.body, rules, []);
-    let data = req.body;
-    let query = `UPDATE public.category_tbl
-        SET cat_name='${data.cat_name}', cat_desc='${data.cat_desc}', cat_image1='${data.cat_image1}', cat_image2='${data.cat_image2}', updated_by=${req.user.admin_id}, updated_dt=NOW()
-        WHERE cat_id = ${data.id}`;
-
-    let result = await pool.executeQuery(query, []);
-    return returnStatus(res, {}, 200, "success");
-  } catch (error) {
-    if (error.stack) {
-      console.log("error", new Date(), ":", error);
-      sysErrorLog(error, __filename.slice(__dirname.length + 1));
-    }
-    return returnStatus(
-      res,
-      error.erorrLog || {},
-      error.status || 500,
-      error.message
-    );
-  }
-};
-
-const deleteById = async (req, res) => {
+const del = async (req, res) => {
   try {
     let rules = {
       id: "required",
@@ -160,9 +109,48 @@ const deleteById = async (req, res) => {
 
     await validate(req.params, rules, []);
     let id = req.params.id;
-    let query = `update public.category_tbl set is_delete = true where cat_id = ${id}`;
-    let countResult = await pool.executeQuery(query, []);
+
+    let query = `update public.page_tbl set is_delete = true where page_id = ${id}`;
+
+    await pool.executeQuery(query, []);
     return returnStatus(res, {}, 200, "success");
+  } catch (error) {
+    if (error.stack) {
+      console.log("error", new Date(), ":", error);
+      sysErrorLog(error, __filename.slice(__dirname.length + 1));
+    }
+    return returnStatus(
+      res,
+      error.erorrLog || {},
+      error.status || 500,
+      error.message
+    );
+  }
+};
+
+const update = async (req, res) => {
+  try {
+    let rules = {
+      id: "required",
+      page_name: "required",
+      page_body: "required",
+      domain: "required",
+    };
+
+    await validate(req.body, rules, []);
+
+    let id = req.body.id;
+    let page_name = req.body.page_name;
+    let page_body = req.body.page_body;
+    let domain = req.body.domain;
+    let is_active = req.body.is_active;
+
+    let query = `UPDATE public.page_tbl
+          SET page_name='${page_name}',page_body='${page_body}',domain='{${domain}}', is_active=${is_active}, updated_by=${req.user.admin_id}, updated_dt=NOW()
+          WHERE page_id = ${id}`;
+
+    let result = await pool.executeQuery(query, []);
+    return returnStatus(res, {}, 200, "successfully Updated");
   } catch (error) {
     if (error.stack) {
       console.log("error", new Date(), ":", error);
@@ -181,6 +169,6 @@ module.exports = {
   create,
   getAll,
   getById,
-  updateById,
-  deleteById,
+  del,
+  update,
 };

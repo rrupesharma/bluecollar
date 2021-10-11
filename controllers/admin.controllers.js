@@ -23,7 +23,6 @@ const login = async (req, res) => {
     let query = `select * from admin_tbl where username='${username}' and password='${md5(
       password
     )}' and is_active = true`;
-    //console.log(query);
     let result = await pool.executeQueryWithMsg(
       query,
       [],
@@ -130,22 +129,26 @@ const sendForgotPasswordLink = async (req, res) => {
       { email: email, action: "reset", role: "admin" },
       0.5
     );
-    //let jwtDataDecord = await jwtToken.verify(jwtData)
+    // let jwtDataDecord = await jwtToken.verify(jwtData);
 
     let query = `update admin_tbl set token='${token}' where email = '${email}' Returning *;`;
-    // console.log(query);
     let resultAdmin = await pool.executeQuery(query, []);
-    //mail.send(email,'Sunshine reset password token',`Hi, <br><br>
-    //please use below token to reset password <a href='https://sunshine-admin-frontend-dev.herokuapp.com/#/set-pwd?token=${token}'>link</a>`)
-    //let result = await getEmailTemplate("Dashboard Forgot Password Link");
-    //let name =
-    //  resultAdmin.rows[0].first_name + " " + resultAdmin.rows[0].last_name;
-    //let link = `${config.dasboardUrl}/#/set-pwd?token=${token}`;
-    //let subject = result["temp_subject"];
-    //let body = result["temp_body"]
-    //  .replace("{NAME}", name)
-    //  .replace("{TOKEN}", token);
-    //mail.send(email, subject, body);
+    mail.send(
+      email,
+      "Bluecollar reset password token",
+      `Hi, <br><br>
+    please use below token to reset password <a href='https://bluecollar-admin-frontend-dev.herokuapp.com/#/set-pwd?token=${token}'>link</a>`
+    );
+    let result = await getEmailTemplate("Dashboard Forgot Password Link");
+    console.log(result);
+    let name =
+      resultAdmin.rows[0].first_name + " " + resultAdmin.rows[0].last_name;
+    let link = `${config.dasboardUrl}/#/set-pwd?token=${token}`;
+    let subject = result["temp_subject"];
+    let body = result["temp_body"]
+      .replace("{NAME}", name)
+      .replace("{TOKEN}", token);
+    mail.send(email, subject, body);
     return returnStatus(res, {}, 200, "successfully send mail");
   } catch (error) {
     if (error.stack) {
